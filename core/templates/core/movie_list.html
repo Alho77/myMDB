@@ -7,19 +7,22 @@
     <div class="row">
         {% for movie in movies %}
             <div class="col-sm-4">
-                <div class="product-card">
+                <div class="custom-card">
+                    <a href="{% url 'core:movie_detail' movie.slug movie.id %}">
                     {# Product's image #}
-                    <img class="product-image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                        <img class="custom-image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                    </a>
                     <div class="card-container">
                         <h4><b>{{movie.title}}</b></h4>
                         <h5 class="text-muted"><span class="small">{{movie.year}}</span></h5>
-                        <p>{{movie.rating}}</p>
-                    </div>
-                    <div class="middle">
-                        <button type="button" class="btn btn-outline-info col-sm">Detail</button>
+                        <span class="badge badge-primary">{{movie.get_rating_display}}</span>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+        {% if is_paginated %}
+            <br>
+            {% include 'includes/pagination.html' %}
+        {% endif %}
 {% endblock content %}
