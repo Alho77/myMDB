@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}{{movie.title}}{% endblock title %}
+{% block header %}{{movie.title}}{% endblock header %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm">
+            <div class="card col-sm">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        {# movie's image #}
+                    <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                    </div>
+                    <div class="card-container col-lg-8 col-md-8 col-sm-12">
+                            <h4><b>{{movie.title}}</b></h4>
+                            <p>Year: {{movie.year}}</p>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <p>Rating: <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <p>Runtime: {{movie.runtime}}</p>
+                            </div>
+                        </div>
+                        {% comment %} <p>Category: </p> {% endcomment %}
+                        <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
