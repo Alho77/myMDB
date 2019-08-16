@@ -21,7 +21,7 @@
             </li>
         </ul>
         {# Login/Logout button #}
-        <a type="button" class="btn btn-link" style="margin-right: 5px;" 
+        {% comment %} <a type="button" class="btn btn-link" style="margin-right: 5px;" 
             href="{% if not user.is_authenticated %}
                 {% url 'members:login' %}
             {% else %}
@@ -30,7 +30,7 @@
             {# icon #}
             <i class="fas fa-user-circle" style="margin-right: 7px"></i>
             {% if not user.is_authenticated %}Login{% else %}{{ user.username }}{% endif %}
-        </a>
+        </a> {% endcomment %}
         {# Search form #}
         <form method="GET" action="" class="form-inline my-2 my-lg-0">
             <input class="form-control col-sm-7" type="search" placeholder="Search" name="q">
