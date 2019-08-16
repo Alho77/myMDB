@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+from mymdb.models import AbstractModel
+
+
+class Movie(AbstractModel):
+    runtime = models.PositiveIntegerField()
