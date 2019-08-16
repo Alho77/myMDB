@@ -6,7 +6,7 @@ RATED_G = 1
 RATED_PG = 2
 RATED_R = 3
 RATING = ((NOT_RATED, 'NR - Not Rated'), (RATED_G, 'G - General Audience'),
-          (RATED_PG, 'PG - Parental Guidance', 'Suggested'), (RATED_R, 'R - Restricted'))
+          (RATED_PG, 'PG - Parental Guidance'), (RATED_R, 'R - Restricted'))
 
 
 class AbstractModel(models.Model):
