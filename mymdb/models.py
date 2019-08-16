@@ -15,6 +15,7 @@ class AbstractModel(models.Model):
     description = models.TextField(blank=True)
     year = models.PositiveIntegerField()
     rating = models.IntegerField(choices=RATING, default=NOT_RATED)
+    image = models.ImageField(upload_to='movies/%Y/%m/%d', blank=True)
     website = models.URLField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
