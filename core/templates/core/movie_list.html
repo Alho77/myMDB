@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Movies{% endblock title %}
+{% block header %}Movies{% endblock header %}
+{% block content %}
+    <div class="row">
+        {% for movie in movies %}
+            <div class="col-sm-4">
+                <div class="product-card">
+                    {# Product's image #}
+                    <img class="product-image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                    <div class="card-container">
+                        <h4><b>{{movie.title}}</b></h4>
+                        <h5 class="text-muted"><span class="small">{{movie.year}}</span></h5>
+                        <p>{{movie.rating}}</p>
+                    </div>
+                    <div class="middle">
+                        <button type="button" class="btn btn-outline-info col-sm">Detail</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
