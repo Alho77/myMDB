@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible">
+    {# Title #}
+    <title>{% block title %}{% endblock title %}</title>
+    {# Main css #}
+    <link rel="stylesheet" type="text/css" href="{% static 'contents/bootstrap.min.css' %}" />
+    {# Custom css #}
+    <link rel="stylesheet" type="text/css" href="{% static 'contents/site.css' %}" />
+    {# Icons #}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<header>
+    {# navbar #}
+    {% include 'includes/navbar.html' %}
+</header>
+<body>
+    <div class="container-fluid" style="margin-top: 2rem; margin-bottom: 1rem;">
+        {# Header card #}
+        <div class="card col-sm-12">
+            <div class="row">
+                <h2 class="col-sm-10">{% block header %}{% endblock header %}</h2>
+                {# Cart button #}
+                <a type="button" class="btn btn-outline-warning col-sm" style="margin-right: 5px;" href="{% url 'cart:cart-detail' %}">
+                    <i class="fas fa-shopping-basket" style="margin-right: 20px"></i>
+                    {{card|length}}
+                </a>
+            </div>
+        </div>
+        {# Body #}
+        {% block content %}{% endblock content %}
+    </div>
+</body>
+<script src="{% static 'scripts/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'scripts/bootstrap.min.js' %}"></script>
+{% block script %}{% endblock script %}
+
+</html>

@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        {# Logo #}
+        <a class="navbar-brand" href="{% url 'core:home' %}">MyMDB</a>
+        {# Navbar items #}
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {# Dropdown nav #}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+                </a>
+                {# Dropdown nav's item #}
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                </div>
+            </li>
+        </ul>
+        {# Login/Logout button #}
+        <a type="button" class="btn btn-link" style="margin-right: 5px;" 
+            href="{% if not user.is_authenticated %}
+                {% url 'members:login' %}
+            {% else %}
+                {% url 'members:logout' %}
+            {% endif %}">
+            {# icon #}
+            <i class="fas fa-user-circle" style="margin-right: 7px"></i>
+            {% if not user.is_authenticated %}Login{% else %}{{ user.username }}{% endif %}
+        </a>
+        {# Search form #}
+        <form method="GET" action="" class="form-inline my-2 my-lg-0">
+            <input class="form-control col-sm-7" type="search" placeholder="Search" name="q">
+            <button class="btn btn-outline-secondary col-sm-4" type="submit"><i class="fas fa-search" style="margin-right:5px;"></i>Search</button>
+        </form>
+    </div>
+</nav>
