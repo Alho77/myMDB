@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView
 
-from .models import Movie
+from .models import Movie, Person
 
 
 class MovieListView(ListView):
@@ -10,8 +10,14 @@ class MovieListView(ListView):
 
 
 class MovieDetailView(DetailView):
-    model = Movie
+    queryset = (Movie.objects.all_with_related_persons())
     context_object_name = 'movie'
     query_pk_and_slug = True
     pk_url_kwarg = "movie_id"
     slug_url_kwarg = 'slug'
+
+
+class PersonDetailView(DetailView):
+    queryset = Person.objects.all_with_perfetch_movie()
+    context_object_name = 'person'
+    pk_url_kwarg = 'id'
