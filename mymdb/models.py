@@ -27,12 +27,22 @@ class AbstractModel(models.Model):
         return self.title
 
 
+class PersonManager(models.Manger):
+    def all_with_perfetch_movie(self):
+        """Return result base on person and avoid to proccess all the Person model"""
+
+        qs = self.get_queryset()
+        return qs.prefetch_related('directed', 'role_set__movie')
+
+
 class Person(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     born = models.DateField()
     died = models.DateField(null=True, blank=True)
+
+    objects = PersonManager()
 
     class Meta:
         ordering = ('first_name', 'last_name')
