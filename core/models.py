@@ -1,6 +1,34 @@
 from django.db import models
+from django.shortcuts import reverse
 
-from mymdb.models import AbstractModel, Person
+from mymdb.models import AbstractModel
+
+
+class PersonManager(models.Manager):
+    def all_with_perfetch_movie(self):
+        """Return result base on person and avoid to proccess all the Person model"""
+
+        qs = self.get_queryset()
+        return qs.prefetch_related('directed', 'role_set__movie')
+
+
+class Person(models.Model):
+
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    born = models.DateField()
+    died = models.DateField(null=True, blank=True)
+
+    objects = PersonManager()
+
+    class Meta:
+        ordering = ('first_name', 'last_name')
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    def get_absolute_url(self):
+        return reverse("core:person_detail", kwargs={"id": self.id})
 
 
 class Movie(AbstractModel):
@@ -9,6 +37,9 @@ class Movie(AbstractModel):
         to=Person, on_delete=models.SET_NULL, related_name='directed', null=True, blank=True)
     actors = models.ManyToManyField(
         to=Person, related_name='acting_credits', through='Role', blank=True)
+
+    def get_absolute_url(self):
+        return reverse("core:movie_detail", kwargs={'movie_id': self.id, 'slug': self.slug})
 
 
 class Role(models.Model):
@@ -21,3 +52,6 @@ class Role(models.Model):
 
     def __str__(self):
         return f'{self.movie_id} - {self.person_id}: {self.name}'
+
+    def get_absolute_url(self):
+        return reverse("core:movie_detail", kwargs={"pk": self.pk})
