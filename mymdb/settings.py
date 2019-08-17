@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'mymdb',
+    'users.apps.UsersConfig',
     'core.apps.CoreConfig',
 ]
 
