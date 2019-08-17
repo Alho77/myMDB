@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{person}}{% endblock title %}
+{% block header %}{{person}}{% endblock header %}
+
+{% block content %}
+    {# Person card #}
+    <div class="row">
+        <div class="col">
+            <div class="card col">
+                <div class="row">
+                    {# Person's image #}
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                    <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                    </div>
+                    {# card's body #}
+                    <div class="card-container col-lg-8 col-md-8 col-sm-12">
+                        <h4><b>{{person}}</b></h4>
+                        <p>Born: {{person.born}}</p>   
+                        {% if person.died %}
+                            <p>Died: {{person.died}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# Person's roles #}
+    <div class="row">
+        {# Actor role #}
+        {% for role in person.role_set.all %}
+            <div class="card col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    {% with movie as role.movie %}
+                        {# Movie's image #}
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                            <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                        </div>
+                        {# card's body #}
+                        <div class="card-container col-lg-8 col-md-8 col-sm-12">
+                            <h5><a class="card-link" href="movie.get_absolute_url">{{movie.title}}</a></h5>
+                            <p>Year: {{movie.year}}</p>
+                            <p>Role: {{role}}</p>
+                        </div>
+                    {% endwith %}
+                </div>
+            </div>
+        {% endfor %}
+        {# Director role #}
+        {% for movie in person.directed.all %}
+            <div class="card col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    {# Movie's image #}
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                    </div>
+                    {# card's body #}
+                    <div class="card-container col-lg-8 col-md-8 col-sm-12">
+                        <h5><a class="card-link" href="movie.get_absolute_url">{{movie.title}}</a></h5>
+                        <p>Year: {{movie.year}}</p>
+                        <p>Role: {{role}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
