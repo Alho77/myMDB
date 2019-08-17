@@ -31,12 +31,22 @@ class Person(models.Model):
         return reverse("core:person_detail", kwargs={"id": self.id})
 
 
+class MovieManager(models.Manager):
+    def all_with_related_persons(self):
+        qs = self.get_queryset()
+        qs = qs.select_related('director')
+        qs = qs.prefetch_related('actors')
+        return qs
+
+
 class Movie(AbstractModel):
     runtime = models.PositiveIntegerField()
     director = models.ForeignKey(
         to=Person, on_delete=models.SET_NULL, related_name='directed', null=True, blank=True)
     actors = models.ManyToManyField(
         to=Person, related_name='acting_credits', through='Role', blank=True)
+
+    objects = MovieManager()
 
     def get_absolute_url(self):
         return reverse("core:movie_detail", kwargs={'movie_id': self.id, 'slug': self.slug})
