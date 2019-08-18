@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import reverse
-
+from django.contrib.auth import get_user_model
 from mymdb.models import AbstractModel
 
 
@@ -65,3 +65,18 @@ class Role(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:movie_detail", kwargs={"pk": self.pk})
+
+
+class Vote(models.Model):
+    UP = 1
+    DOWN = -1
+    CHOICE = ((UP, 'Like'), (DOWN, 'Dislike'))
+    User = get_user_model()
+
+    value = models.SmallIntegerField(choices=CHOICE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    voted_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'movie')
