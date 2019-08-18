@@ -21,16 +21,16 @@
             </li>
         </ul>
         {# Login/Logout button #}
-        {% comment %} <a type="button" class="btn btn-link" style="margin-right: 5px;" 
-            href="{% if not user.is_authenticated %}
-                {% url 'members:login' %}
+        <a type="button" class="btn btn-link" style="margin-right: 5px;" id="login-modal-btn"
+            {% if not user.is_authenticated %}
+                data-url="{% url 'users:login' %}"
             {% else %}
-                {% url 'members:logout' %}
-            {% endif %}">
+                href="{% url 'users:logout' %}"
+            {% endif %}>
             {# icon #}
             <i class="fas fa-user-circle" style="margin-right: 7px"></i>
             {% if not user.is_authenticated %}Login{% else %}{{ user.username }}{% endif %}
-        </a> {% endcomment %}
+        </a>
         {# Search form #}
         <form method="GET" action="" class="form-inline my-2 my-lg-0">
             <input class="form-control col-sm-7" type="search" placeholder="Search" name="q">
