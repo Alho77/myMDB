@@ -25,6 +25,11 @@
                         </div>
                         {% comment %} <p>Category: </p> {% endcomment %}
                         <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
+                        <br>
+                        {# Vote form #}
+                        <div class="form">
+                            {% include 'core/includes/vote_form.html' %}
+                        </div>
                     </div>
                 </div>
             </div>
