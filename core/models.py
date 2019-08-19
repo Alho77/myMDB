@@ -67,6 +67,14 @@ class Role(models.Model):
         return reverse("core:movie_detail", kwargs={"pk": self.pk})
 
 
+class VoteManager(models.Manager):
+    def get_vote_or_unsaved_blank_vote(self, movie, user):
+        try:
+            return Vote.objects.get(movie=movie, user=user)
+        except Vote.DoseNotExist:
+            return Vote(movie=movie, user=user)
+
+
 class Vote(models.Model):
     UP = 1
     DOWN = -1
@@ -77,6 +85,8 @@ class Vote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     voted_on = models.DateTimeField(auto_now_add=True)
+
+    objects = VoteManager()
 
     class Meta:
         unique_together = ('user', 'movie')
