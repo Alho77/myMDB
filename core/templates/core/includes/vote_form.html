@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+{% if vote_form %}
+    <form method="POST" action="{{vote_form_url}}">
+        {% csrf_token %}
+        {{vote_form|crispy}}
+        <button type="submit" class="btn btn-primary">Vote</button>
+    </form>
+{% else %}
+    <p class="text-center small">
+        Want to vote? <a class="card-link" href="{% url 'users:login' %}"><b>Login</b></a> now!
+    </p>
+{% endif %}
