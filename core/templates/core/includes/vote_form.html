@@ -5,11 +5,11 @@
     <form method="POST" action="{{vote_form_url}}">
         {% csrf_token %}
         {{vote_form|crispy}}
-        <button type="submit" class="btn btn-primary">Vote</button>
+        <button class="btn btn-primary">Vote</button>
     </form>
 </div>
 {% else %}
-    <p class="text-center small">
+    <p class="small">
         Want to vote? <a class="card-link" href="{% url 'users:login' %}"><b>Login</b></a> now!
     </p>
 {% endif %}
