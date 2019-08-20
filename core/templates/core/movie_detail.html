@@ -13,8 +13,16 @@
                     <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
                     </div>
                     <div class="card-container col-lg-8 col-md-8 col-sm-12">
-                            <h4><b>{{movie.title}}</b></h4>
-                            <p>Year: {{movie.year}}</p>
+                        <h4><b>{{movie.title}}</b></h4>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <p>Year: {{movie.year}}</p>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <p>Score: <span class="badge badge-info">{{movie.score|default_if_none:"TBD"}}</span></p>
+                            </div>
+                        </div>
+                            
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                 <p>Rating: <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
