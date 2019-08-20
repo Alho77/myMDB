@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.aggregates import Sum
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 from mymdb.models import AbstractModel
@@ -36,6 +37,13 @@ class MovieManager(models.Manager):
         qs = self.get_queryset()
         qs = qs.select_related('director')
         qs = qs.prefetch_related('actors')
+        return qs
+
+    def all_with_related_persons_and_score(self):
+        """Return movie that related with persons and score"""
+
+        qs = self.all_with_related_persons()
+        qs = qs.annotate(score=Sum('vote__value'))
         return qs
 
 
