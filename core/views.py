@@ -14,7 +14,7 @@ class MovieListView(ListView):
 
 
 class MovieDetailView(DetailView):
-    queryset = (Movie.objects.all_with_related_persons())
+    queryset = Movie.objects.all_with_related_persons_and_score()
     context_object_name = 'movie'
     query_pk_and_slug = True
     pk_url_kwarg = "movie_id"
