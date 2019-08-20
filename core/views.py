@@ -34,7 +34,7 @@ class MovieDetailView(DetailView):
                                                    'slug': self.object.slug})
             context['vote_form'] = VoteForm(instance=vote)
 
-            return context
+        return context
 
 
 class PersonDetailView(DetailView):
