@@ -71,7 +71,7 @@ class VoteManager(models.Manager):
     def get_vote_or_unsaved_blank_vote(self, movie, user):
         try:
             return Vote.objects.get(movie=movie, user=user)
-        except Vote.DoseNotExist:
+        except Vote.DoesNotExist:
             return Vote(movie=movie, user=user)
 
 
