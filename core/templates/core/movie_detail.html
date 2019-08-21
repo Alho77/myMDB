@@ -16,7 +16,15 @@
                     </div>
                     <div class="card-container col-lg-8 col-md-8 col-sm-12">
                         <h4><b>{{movie.title}}</b></h4>
-                        <p>Year: {{movie.year}}</p>    
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                               <p>Year: {{movie.year}}</p> 
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                {# star rating #}
+                                {% ratings movie icon_width=20 %}
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                 <p>Rating: <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
@@ -28,8 +36,6 @@
                         {% comment %} <p>Category: </p> {% endcomment %}
                         <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
                         <br>
-                        {# Vote form #}
-                        {% ratings movie %}
                     </div>
                 </div>
             </div>
