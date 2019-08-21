@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
-{% load static %}
+{% load static ratings%}
+
+{% block css %}<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">{% endblock css %}
 
 {% block title %}{{movie.title}}{% endblock title %}
 {% block header %}{{movie.title}}{% endblock header %}
@@ -14,15 +16,7 @@
                     </div>
                     <div class="card-container col-lg-8 col-md-8 col-sm-12">
                         <h4><b>{{movie.title}}</b></h4>
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12">
-                                <p>Year: {{movie.year}}</p>
-                            </div>
-                            <div class="col-lg-6 col-sm-12">
-                                <p>Score: <span class="badge badge-info">{{movie.score|default_if_none:"TBD"}}</span></p>
-                            </div>
-                        </div>
-                            
+                        <p>Year: {{movie.year}}</p>    
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                 <p>Rating: <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
@@ -35,12 +29,12 @@
                         <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
                         <br>
                         {# Vote form #}
-                        <div class="form">
-                            {% include 'core/includes/vote_form.html' %}
-                        </div>
+                        {% ratings movie %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block script %}<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>{% endblock script %}
