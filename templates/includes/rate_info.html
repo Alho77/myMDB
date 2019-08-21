@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% block rating_container %}
+    {# rating detail #}
+    {% block rating_detail %}
+        {# rating average #}
+        {% block rating_average %}
+            <div class="star-ratings-rating-average" style="margin-top: 3px;">
+                <span class='star-ratings-rating-value'>Score: {{ rating.average|floatformat:"-1" }}</span>
+            </div>
+        {% endblock rating_average %}  
+    {% endblock rating_detail %}
+{% endblock rating_container %}
