@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.shortcuts import reverse
@@ -66,3 +68,12 @@ class Role(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:movie_detail", kwargs={"pk": self.pk})
+
+
+def movie_dir_with_uuid(instance, filename):
+    """
+    Store all movie's images in a directory and generate unique name
+    for each file
+    """
+
+    return f'{instance.slug}/{uuid4()}'
