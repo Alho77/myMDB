@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% load static %}
+{% load static ratings%}
 
 {% block title %}Movies{% endblock title %}
 {% block header %}Movies{% endblock header %}
@@ -15,7 +15,11 @@
                     <div class="card-container">
                         <h4><b>{{movie.title}}</b></h4>
                         <h5 class="text-muted"><span class="small">{{movie.year}}</span></h5>
-                        <span class="badge badge-primary">{{movie.get_rating_display}}</span>
+                        <div class="form-row">
+                            <span class="badge badge-primary">{{movie.get_rating_display}}</span>
+                            {# rate info #}
+                            <span class="badge badge-warning" style="margin-left:10px"> {% include 'core/includes/movie_rate_info.html' %}</span>
+                        </div>
                     </div>
                 </div>
             </div>
