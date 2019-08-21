@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'crispy_forms',
+    'star_ratings',
 
     'mymdb',
     'users.apps.UsersConfig',
