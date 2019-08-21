@@ -6,6 +6,8 @@ from django.shortcuts import reverse
 
 from mymdb.models import AbstractModel
 
+User = get_user_model()
+
 
 class PersonManager(models.Manager):
     def all_with_perfetch_movie(self):
@@ -77,3 +79,10 @@ def movie_dir_with_uuid(instance, filename):
     """
 
     return f'{instance.slug}/{uuid4()}'
+
+
+class MovieImage(models.Model):
+    image = models.ImageField(upload_to=movie_dir_with_uuid)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
