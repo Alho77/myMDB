@@ -1,0 +1,7 @@
+{% load static ratings%}
+
+{% block css %}<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">{% endblock css %}
+{% block script %}<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>{% endblock script %}
+
+{# star rating info #}
+{% ratings movie template_name="includes/rate_info.html" %}
