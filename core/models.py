@@ -1,7 +1,7 @@
-from django.db import models
-from django.db.models.aggregates import Sum
-from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
+from django.db import models
+from django.shortcuts import reverse
+
 from mymdb.models import AbstractModel
 
 
@@ -39,13 +39,6 @@ class MovieManager(models.Manager):
         qs = qs.prefetch_related('actors')
         return qs
 
-    def all_with_related_persons_and_score(self):
-        """Return movie that related with persons and score"""
-
-        qs = self.all_with_related_persons()
-        qs = qs.annotate(score=Sum('vote__value'))
-        return qs
-
 
 class Movie(AbstractModel):
     runtime = models.PositiveIntegerField()
@@ -73,28 +66,3 @@ class Role(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:movie_detail", kwargs={"pk": self.pk})
-
-
-class VoteManager(models.Manager):
-    def get_vote_or_unsaved_blank_vote(self, movie, user):
-        try:
-            return Vote.objects.get(movie=movie, user=user)
-        except Vote.DoesNotExist:
-            return Vote(movie=movie, user=user)
-
-
-class Vote(models.Model):
-    UP = 1
-    DOWN = -1
-    CHOICE = ((UP, 'Like'), (DOWN, 'Dislike'))
-    User = get_user_model()
-
-    value = models.SmallIntegerField(choices=CHOICE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    voted_on = models.DateTimeField(auto_now_add=True)
-
-    objects = VoteManager()
-
-    class Meta:
-        unique_together = ('user', 'movie')
