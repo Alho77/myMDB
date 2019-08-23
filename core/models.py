@@ -3,6 +3,7 @@ from uuid import uuid4
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.shortcuts import reverse
+from django.template.defaultfilters import slugify
 
 from mymdb.models import AbstractModel
 
@@ -78,7 +79,9 @@ def movie_dir_with_uuid(instance, filename):
     for each file
     """
 
-    return f'{instance.slug}/{uuid4()}'
+    title = instance.movie.title
+    slug = slugify(title)
+    return f'movies/{slug}/{uuid4().hex}.png'
 
 
 class MovieImage(models.Model):
