@@ -12,4 +12,7 @@ urlpatterns = [
          views.MovieDetailView.as_view(), name='movie_detail'),
     # person detail
     path('person-<int:id>/', views.PersonDetailView.as_view(), name='person_detail'),
+    path('movie_<slug:slug>/image/upload/',
+         views.MovieImageUploadView.as_view(), name='image_upload'),
+
 ]
