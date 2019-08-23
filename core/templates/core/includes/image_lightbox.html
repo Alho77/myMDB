@@ -1,0 +1,7 @@
+<div class="row">
+    {% for object in movie.movieimage_set.all %}
+        <a href="{{object.image.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4" data-footer="Uploaded by {{object.user}} at {{object.uploaded_at}}" class="col-sm-4" style="margin-bottom:5px">
+            <img src="{{object.image.url}}" class="img-fluid">
+        </a>
+    {% endfor %}
+</div>
