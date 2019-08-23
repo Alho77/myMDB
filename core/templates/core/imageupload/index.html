@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Upload{% endblock title %}
+{% block header %}{{movie}} - Upload{% endblock header %}
+
+{% block content %}
+
+    <div class="row d-flex justify-content-center">
+        <div class="card border-secondary hover-shadow col-7">
+            <div class="card-body">
+                <button type="button" class="btn btn-warning js-upload-photos col">
+                    <i class="fas fa-cloud-upload-alt" style="margin-right:10px"></i><b>Upload</b>
+                </button>
+                <hr>
+
+                {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+                <input id="fileupload" type="file" name="image" multiple
+                style="display: none;"
+                data-url="{% url 'core:image_upload' movie.slug %}"
+                data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+                {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+                <table id="gallery" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for photo in photos %}
+                            <tr>
+                                <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}
+
+{# progressbar modal #}
+{% include 'core/includes/imageupload/progress_modal.html' %}
+
+{% block script %}
+    {# jquery file scripts #}
+    <script type="text/javascript" src="{% static 'scripts/file_upload/jquery.ui.widget.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/file_upload/jquery.iframe-transport.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/file_upload/jquery.fileupload.js' %}"></script>
+    
+    {# page script #}
+    <script type="text/javascript" src="{% static 'scripts/file_upload/fileupload.js' %}"></script>
+{% endblock script %}
