@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
 {% load static ratings%}
 
-{% block css %}<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">{% endblock css %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <link rel="stylesheet" href="{% static 'contents/ekko-lightbox.css' %}">
+{% endblock css %}
 
 {% block title %}{{movie.title}}{% endblock title %}
 {% block header %}{{movie.title}}{% endblock header %}
@@ -10,9 +13,17 @@
         <div class="col-sm">
             <div class="card col-sm">
                 <div class="row">
+                    {# movie's image #}
                     <div class="col-lg-4 col-md-4 col-sm-12">
-                        {# movie's image #}
-                    <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                        <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+                        <br>
+                        {# ligthbox #}
+                        {% include 'core/includes/image_lightbox.html' %}
+                        <hr>
+                        {# Upload btn #}
+                        <a class="btn btn-outline-warning col" href="{% url 'core:image_upload' movie.slug %}">
+                            <i class="fas fa-cloud-upload-alt" style="margin-right:10px"></i><b>Upload</b>
+                        </a>
                     </div>
                     <div class="card-container col-lg-8 col-md-8 col-sm-12">
                         <h4><b>{{movie.title}}</b></h4>
@@ -37,10 +48,15 @@
                         <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
                         <br>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
 
-{% block script %}<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>{% endblock script %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/lightbox/ekko-lightbox.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/site.js' %}"></script>
+{% endblock script %}
