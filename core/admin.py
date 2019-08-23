@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Movie, Person
+from .models import Movie, Person, MovieImage
 
 
 class MovieAdmin(admin.ModelAdmin):
@@ -20,3 +20,4 @@ class PersonAdmin(admin.ModelAdmin):
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Movie, MovieAdmin)
+admin.site.register(MovieImage)
