@@ -37,6 +37,13 @@ class Person(models.Model):
         return reverse("core:person_detail", kwargs={"id": self.id})
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class MovieManager(models.Manager):
     def all_with_related_persons(self):
         qs = self.get_queryset()
@@ -51,6 +58,8 @@ class Movie(AbstractModel):
         to=Person, on_delete=models.SET_NULL, related_name='directed', null=True, blank=True)
     actors = models.ManyToManyField(
         to=Person, related_name='acting_credits', through='Role', blank=True)
+    category = models.ManyToManyField(
+        to=Category, related_name='categorized', through='CategoryRelation', blank=True)
 
     objects = MovieManager()
 
@@ -71,6 +80,14 @@ class Role(models.Model):
 
     def get_absolute_url(self):
         return reverse("core:movie_detail", kwargs={"pk": self.pk})
+
+
+class CategoryRelation(models.Model):
+    category = models.ForeignKey(to=Category, on_delete=models.DO_NOTHING)
+    movie = models.ForeignKey(to=Movie, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        unique_together = ('category', 'movie')
 
 
 def movie_dir_with_uuid(instance, filename):
