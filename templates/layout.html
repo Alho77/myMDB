@@ -23,11 +23,9 @@
     {% include 'includes/navbar.html' %}
 </header>
 <body>
-    <div class="container-fluid" style="margin-top: 2rem; margin-bottom: 1rem;">
-        {# Header card #}
-        <div class="card col-sm-12">
-            <h2 class="col-sm-10">{% block header %}{% endblock header %}</h2>
-        </div>
+    {# Banner #}
+    {% include 'includes/banner.html' %}
+    <div class="container-fluid">
         {# Body #}
         {% block content %}{% endblock content %}
     </div>

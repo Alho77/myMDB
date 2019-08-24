@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block title %}Upload{% endblock title %}
-{% block header %}{{movie}} - Upload{% endblock header %}
 
 {% block content %}
 
     <div class="row d-flex justify-content-center">
-        <div class="card border-secondary hover-shadow col-7">
+        <div class="card border-secondary col-7">
+            <div class="card-title">{{movie}} - Upload</div>
             <div class="card-body">
                 <button type="button" class="btn btn-warning js-upload-photos col">
                     <i class="fas fa-cloud-upload-alt" style="margin-right:10px"></i><b>Upload</b>
