@@ -10,7 +10,8 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-9">
+        {# Right side #}
+        <div class="col-sm-9" style="padding-left: 0px;padding-right: 5px;">
             <div class="card col-sm">
                 <div class="row">
                     {# movie's image #}
@@ -19,9 +20,10 @@
                     </div>
                     <div class="card-container col-lg-8 col-md-8 col-sm-12">
                         <h4><b>{{movie.title}}</b></h4>
+                        <br>
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
-                               <p>Year: {{movie.year}}</p> 
+                               <p><b>Year:</b> {{movie.year}}</p> 
                             </div>
                             <div class="col-lg-6 col-sm-12">
                                 {# star rating #}
@@ -30,13 +32,22 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
-                                <p>Rating: <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
+                                <p><b>Rating:</b> <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
                             </div>
                             <div class="col-lg-6 col-sm-12">
-                                <p>Runtime: {{movie.runtime}}</p>
+                                <p><b>Runtime:</b> {{movie.runtime}}</p>
                             </div>
                         </div>
-                        {% comment %} <p>Category: </p> {% endcomment %}
+                        <div class="col">
+                            <div class="row">
+                                <h6><b>Category:</b></h6>
+                                <div class="col-sm-9" style="margin-left:5px">
+                                    {% for cat in movie.category.all %}
+                                        <a class="card-link small" href="#" style="margin-left: 0px;">{{ cat.name }},</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                         <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
                         <br>
                     </div>
@@ -44,15 +55,35 @@
                 </div>
             </div>
         </div>
-        <div class="card col-sm-3">
-            <div class="card-body d-flex flex-column">
-                {# ligthbox #}
-                {% include 'core/includes/image_lightbox.html' %}
+        {# Left side #}
+        <div class="col-lg-3 col-md-3 col-sm-12" style="padding-right: 0px;padding-left: 5px;">
+            {# Directors and actors #}
+            <div class="card col">
+                <h6><b>Directors</b></h6>
                 <hr>
-                {# Upload btn #}
-                <a class="btn btn-light mt-auto" href="{% url 'core:image_upload' movie.slug %}">
-                    <i class="fas fa-cloud-upload-alt" style="margin-right:10px"></i><b>Upload</b>
-                </a>
+                <h6><b>Casts</b></h6>
+                <div class="row overflow">
+                    {% for actor in movie.actors.all %}
+                        <div class="card col-12">
+                            <div class="card-body">
+                                <h6 class="card-title small"><b>{{actor}}</b></h6>
+                                <p class="card-text small text-muted">{{actor.role}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {# Uploaded images card #}
+            <div class="card col">
+                <div class="card-body d-flex flex-column">
+                    {# ligthbox #}
+                    {% include 'core/includes/image_lightbox.html' %}
+                    <hr>
+                    {# Upload btn #}
+                    <a class="btn btn-light mt-auto" href="{% url 'core:image_upload' movie.slug %}">
+                        <i class="fas fa-cloud-upload-alt" style="margin-right:10px"></i><b>Upload</b>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
