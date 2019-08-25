@@ -40,6 +40,9 @@ class Person(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = 'categories'
+
     def __str__(self):
         return self.name
 
@@ -106,3 +109,6 @@ class MovieImage(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.movie}: {self.id}'
