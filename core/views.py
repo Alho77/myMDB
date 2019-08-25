@@ -1,7 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, View
+from django.views.generic import DetailView, ListView, View
 from django.shortcuts import redirect, render, reverse
 
 from .models import Movie, Person, MovieImage
