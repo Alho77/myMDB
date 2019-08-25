@@ -9,6 +9,11 @@ body {
 	height: 100%;
 }
 
+.overflow {
+	height: 150px;
+	overflow-y: scroll;
+}
+
 /* Header/Blog Title */
 .header {
 	padding-top: 30px;
