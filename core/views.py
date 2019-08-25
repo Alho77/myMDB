@@ -41,9 +41,8 @@ class PersonDetailView(DetailView):
 class MovieImageUploadView(View):
 
     def get(self, request, slug):
-        photos = MovieImage.objects.all()
         movie = Movie.objects.get(slug=slug)
-        return render(self.request, 'core/imageupload/index.html', {'photos': photos, 'movie': movie})
+        return render(self.request, 'core/imageupload/index.html', {'movie': movie})
 
     def post(self, request, slug):
         form = MovieImageForm(request.POST, request.FILES)
