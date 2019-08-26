@@ -1,0 +1,46 @@
+{% load static ratings %}
+
+<div class="col-sm-9" style="padding-left: 0px;padding-right: 5px;">
+    <div class="card col-sm">
+        <div class="row">
+            {# movie's image #}
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <img class="image" src="{% if movie.image %}{{movie.image.url}}{% else %}{% static 'images/no-product-image.png' %}{% endif %}" style="width:100%">
+            </div>
+            <div class="card-container col-lg-8 col-md-8 col-sm-12">
+                <h4><b>{{movie.title}}</b></h4>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <p><b>Year:</b> {{movie.year}}</p> 
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        {# star rating #}
+                        {% ratings movie icon_width=20 %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <p><b>Rating:</b> <span class="badge badge-primary">{{movie.get_rating_display}}</span></p>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <p><b>Runtime:</b> {{movie.runtime}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <h6><b>Category:</b></h6>
+                        <div class="col-sm-9" style="margin-left:5px">
+                            {% for cat in movie.category.all %}
+                                <a class="card-link small" href="#" style="margin-left: 0px;">{{ cat.name }},</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <p><b>Summery: </b>{{movie.description|linebreaks}}</p>
+                <br>
+            </div>
+            
+        </div>
+    </div>
+</div>
