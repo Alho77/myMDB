@@ -1,6 +1,8 @@
+{% load humanize %}
+
 <div class="row overflow"  style="height:30px">
     {% for object in movie.movieimage_set.all %}
-        <a href="{{object.image.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4" data-footer="Uploaded by {{object.user}}" class="col-sm-4" style="margin-bottom:5px">
+        <a href="{{object.image.url}}" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4" data-footer="Uploaded by {{object.user}} in {{object.uploaded_at|naturaltime}}" class="col-sm-4" style="margin-bottom:5px">
             <img src="{{object.image.url}}" class="img-fluid">
         </a>
     {% endfor %}
